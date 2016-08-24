@@ -1,2 +1,2 @@
 # gulp-template
-Basic project template with for development and production
+Basic project template for development and production
