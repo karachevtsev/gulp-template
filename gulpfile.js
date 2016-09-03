@@ -51,14 +51,15 @@ gulp.task("html", function () {
     .pipe(server.reload({stream: true}));
 });
 
-gulp.task("jscompress", function (fn) {
-  pump([
-      gulp.src("src/js/*.js"),
-      uglify(),
-      gulp.dest("build/js")
-    ],
-    fn
-  );
+gulp.task('jscompress', function () {
+  gulp.src("src/js/*.js")
+    .pipe(plumber())
+    .pipe(sourcemaps.init())
+      .pipe(uglify())
+      .pipe(rename("app.min.js"))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest("build/js"))
+    .pipe(server.reload({stream: true}));
 });
 
 gulp.task("images", function() {
@@ -82,8 +83,8 @@ gulp.task("symbols", function() {
 });
 
 gulp.task("fonts", function() {
-    gulp.src("src/fonts/**/*.{ttf,woff,woff2}")
-      .pipe(gulp.dest("build/fonts"))
+  gulp.src("src/fonts/**/*.{ttf,woff,woff2}")
+    .pipe(gulp.dest("build/fonts"))
 });
 
 gulp.task("serve", ["style"], function() {
