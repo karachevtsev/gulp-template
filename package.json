@@ -23,6 +23,7 @@
     "gulp-svgmin": "^1.2.2",
     "gulp-svgstore": "^6.0.0",
     "gulp-uglify": "^2.0.0",
+    "main-bower-files": "^2.13.1",
     "pump": "^1.0.1",
     "run-sequence": "^1.2.1"
   }

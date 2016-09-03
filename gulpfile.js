@@ -20,6 +20,7 @@ var del = require("del");
 var uglify = require("gulp-uglify");
 var sourcemaps = require("gulp-sourcemaps");
 var pump = require("pump");
+var mainBowerFiles = require('main-bower-files');
 
 
 gulp.task("style", function() {
@@ -87,6 +88,21 @@ gulp.task("fonts", function() {
     .pipe(gulp.dest("build/fonts"))
 });
 
+gulp.task('libs', function() {
+  return gulp.src(mainBowerFiles({
+    "overrides": {
+      "bootstrap": {
+        "main" : [
+          "./dist/js/bootstrap.min.js",
+          "./dist/css/bootstrap.min.css",
+          "./dist/css/bootstrap-theme.min.css"
+        ]
+      }
+    }
+  }))
+    .pipe(gulp.dest("build/libs"))
+});
+
 gulp.task("serve", ["style"], function() {
   server.init({
     server: "build",
@@ -113,6 +129,7 @@ gulp.task("build", function(fn) {
     "fonts",
     "images",
     "symbols",
+    "libs",
     fn
   );
 });
